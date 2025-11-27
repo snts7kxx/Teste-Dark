@@ -23,8 +23,8 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 25px #af00ff, 0 0 50px #af00ff; }
-            50% { text-shadow: 0 0 20px #af00ff, 0 0 40px #af00ff, 0 0 50px #af00ff; }
+            0%, 100% { text-shadow: 0 0 20px #af00ff, 0 0 40px #af00ff; }
+            50% { text-shadow: 0 0 30px #af00ff, 0 0 60px #af00ff, 0 0 70px #af00ff; }
         }
         
         @keyframes hexSpin {
@@ -316,7 +316,7 @@ async function showSplashScreen() {
             <div class="kd-plugin-status" id="pluginStatus">Preparando módulos...</div>
         </div>
 
-        <div class="kd-version">v2.0 • SNTS7KXX</div>
+        <div class="kd-version">v1.3 • SNTS7KXX</div>
     `; 
     
     splashScreen.insertBefore(particlesContainer, splashScreen.firstChild);
@@ -336,7 +336,7 @@ function updateLoadingProgress(percent, status) {
 
 async function hideSplashScreen() { 
     document.getElementById('loadingText').textContent = 'CONCLUÍDO';
-    await delay(500);
+    await delay(1000);
     splashScreen.style.opacity = '0'; 
     setTimeout(() => splashScreen.remove(), 1000); 
 }
@@ -608,10 +608,10 @@ loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', '
     updateLoadingProgress(100, 'Finalizado!');
 
     const elapsedTime = Date.now() - startTime;
-    const remainingTime = Math.max(0, 3000 - elapsedTime);
+    const remainingTime = Math.max(2000, 3500 - elapsedTime); <--- ALTERE A TELA DE CARREGAMENTO AQUI!
     await delay(remainingTime);
 
-    sendToast("💜 | KhanDark atualizado!");
+    sendToast("💜 | KhanDark atualizado2!");
     sendToast("Entre no nosso Discord!");
 
     await delay(2000);
