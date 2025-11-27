@@ -23,8 +23,8 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px #af00ff, 0 0 40px #af00ff; }
-            50% { text-shadow: 0 0 30px #af00ff, 0 0 60px #af00ff, 0 0 70px #af00ff; }
+            0%, 100% { text-shadow: 0 0 30px #af00ff, 0 0 60px #af00ff; }
+            50% { text-shadow: 0 0 40px #af00ff, 0 0 80px #af00ff, 0 0 100px #af00ff; }
         }
         
         @keyframes hexSpin {
@@ -576,7 +576,7 @@ function setupMain(){
                         sendToast("🎉 | Questão concluída!", 1500);
                     }
                 }
-                await delay(2200);
+                await delay(2500);
             }
         })();
     })();
@@ -608,10 +608,10 @@ loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', '
     updateLoadingProgress(100, 'Finalizado!');
 
     const elapsedTime = Date.now() - startTime;
-    const remainingTime = Math.max(2000, 3500 - elapsedTime); <--- ALTERE A TELA DE CARREGAMENTO AQUI!
+    const remainingTime = Math.max(0, 3000 - elapsedTime);
     await delay(remainingTime);
 
-    sendToast("💜 | KhanDark atualizado2!");
+    sendToast("💜 | KhanDark iniciou!");
     sendToast("Entre no nosso Discord!");
 
     await delay(2000);
