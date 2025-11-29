@@ -363,72 +363,78 @@ async function loadCss(url) {
 /* Main Functions */ 
 function setupMain(){
 
-/* XP Bar RGB - VERSÃO FORÇADA */
+/* XP Bar RGB - VERSÃO COMPLETA */
 (function () {
-    // Injetar CSS
+    // CSS com animação
     const style = document.createElement('style');
-    style.id = 'khandark-rgb';
+    style.id = 'khandark-rgb-final';
     style.innerHTML = `
-        /* FORÇAR bordas arredondadas */
-        ._vtsimy,
-        ._e296pg,
-        [role="progressbar"],
-        [role="progressbar"] > * {
-            border-radius: 999px !important;
-            overflow: hidden !important;
-        }
-        
-        /* RGB Arco-íris ANIMADO */
-        ._vtsimy,
-        ._e296pg {
-            background: linear-gradient(
-                90deg,
-                #ff0000,
-                #ff7700,
-                #ffdd00,
-                #00ff00,
-                #00ffff,
-                #0066ff,
-                #9900ff,
-                #ff0000
-            ) !important;
-            background-size: 400% 100% !important;
-            animation: kd-rainbow 3s linear infinite !important;
-            border-radius: 999px !important;
-        }
-        
+        /* Animação RGB */
         @keyframes kd-rainbow {
             0% { background-position: 0% center; }
             100% { background-position: 400% center; }
         }
+        
+        /* Forçar bordas arredondadas no container */
+        [role="progressbar"] {
+            border-radius: 999px !important;
+            overflow: hidden !important;
+        }
     `;
     document.head.appendChild(style);
     
-    // Função para aplicar estilo inline (FORÇA BRUTA)
-    function forceRGB() {
-        const bars = document.querySelectorAll('._vtsimy, ._e296pg, [role="progressbar"]');
+    // Função para aplicar RGB em TODAS as barras
+    function applyRainbow() {
+        // Pegar TODOS os elementos dentro da barra de progresso
+        const progressBars = document.querySelectorAll('[role="progressbar"]');
         
-        bars.forEach(bar => {
-            // Forçar inline style
-            bar.style.background = 'linear-gradient(90deg, #ff0000, #ff7700, #ffdd00, #00ff00, #00ffff, #0066ff, #9900ff, #ff0000)';
-            bar.style.backgroundSize = '400% 100%';
-            bar.style.animation = 'kd-rainbow 3s linear infinite';
-            bar.style.borderRadius = '999px';
-            bar.style.overflow = 'hidden';
+        progressBars.forEach(container => {
+            // Aplicar arredondamento no container
+            container.style.borderRadius = '999px';
+            container.style.overflow = 'hidden';
+            
+            // Pegar TODOS os filhos (as barras coloridas)
+            const bars = container.querySelectorAll('*');
+            
+            bars.forEach(bar => {
+                // Verificar se tem largura (é uma barra visível)
+                if (bar.offsetWidth > 10) {
+                    bar.style.setProperty('background', 'linear-gradient(90deg, #ff0000, #ff7700, #ffdd00, #00ff00, #00ffff, #0066ff, #9900ff, #ff0000)', 'important');
+                    bar.style.setProperty('background-size', '400% 100%', 'important');
+                    bar.style.setProperty('animation', 'kd-rainbow 3s linear infinite', 'important');
+                    bar.style.setProperty('border-radius', '999px', 'important');
+                }
+            });
+        });
+        
+        // Também pegar pelas classes específicas
+        const specificBars = document.querySelectorAll('._vtsimy, ._e296pg');
+        specificBars.forEach(bar => {
+            bar.style.setProperty('background', 'linear-gradient(90deg, #ff0000, #ff7700, #ffdd00, #00ff00, #00ffff, #0066ff, #9900ff, #ff0000)', 'important');
+            bar.style.setProperty('background-size', '400% 100%', 'important');
+            bar.style.setProperty('animation', 'kd-rainbow 3s linear infinite', 'important');
+            bar.style.setProperty('border-radius', '999px', 'important');
         });
     }
     
     // Aplicar imediatamente
-    forceRGB();
+    setTimeout(applyRainbow, 500);
+    setTimeout(applyRainbow, 1500);
+    setTimeout(applyRainbow, 3000);
     
-    // Reaplicar sempre que a página mudar
-    const observer = new MutationObserver(forceRGB);
-    observer.observe(document.body, { childList: true, subtree: true });
+    // Observar mudanças
+    const observer = new MutationObserver(applyRainbow);
+    observer.observe(document.body, { 
+        childList: true, 
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
     
-    // Reaplicar a cada 2 segundos (garantia)
-    setInterval(forceRGB, 2000);
+    // Reaplicar periodicamente
+    setInterval(applyRainbow, 3000);
     
-    sendToast("🌈 | RGB FORÇADO ativado!", 2000);
+    sendToast("🌈 | RGB Rainbow aplicado!", 2000);
 })();
 
     /* QuestionSpoof */
