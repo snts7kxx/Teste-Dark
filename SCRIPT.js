@@ -582,6 +582,63 @@ function setupMain(){
     })();
 }
 
+/* XP Bar RGB */
+(function () {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        /* Barra de XP principal */
+        [class*="progress"], 
+        [class*="Progress"],
+        [data-test-id*="progress"],
+        .energy-points-badge svg rect[fill]:not([fill="none"]),
+        ._1ctkr6f,
+        ._dwbr0d {
+            background: linear-gradient(90deg, #ff0080, #7928ca, #0070f3, #00dfd8, #7928ca, #ff0080) !important;
+            background-size: 300% 100% !important;
+            animation: rgbSlide 3s linear infinite !important;
+            box-shadow: 0 0 15px rgba(121, 40, 202, 0.6) !important;
+        }
+        
+        /* Animação do gradiente */
+        @keyframes rgbSlide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        
+        /* Círculos de progresso (SVG) */
+        circle[stroke]:not([stroke="none"]) {
+            stroke: url(#rgbGradient) !important;
+            filter: drop-shadow(0 0 8px rgba(121, 40, 202, 0.8));
+        }
+        
+        /* Gradiente para elementos SVG */
+        svg defs { display: block !important; }
+    `;
+    document.head.appendChild(style);
+    
+    // Criar gradiente SVG para círculos
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.style.cssText = "position:absolute;width:0;height:0;";
+    svg.innerHTML = `
+        <defs>
+            <linearGradient id="rgbGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#ff0080;stop-opacity:1">
+                    <animate attributeName="stop-color" values="#ff0080;#7928ca;#0070f3;#00dfd8;#ff0080" dur="3s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="50%" style="stop-color:#0070f3;stop-opacity:1">
+                    <animate attributeName="stop-color" values="#0070f3;#00dfd8;#ff0080;#7928ca;#0070f3" dur="3s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" style="stop-color:#00dfd8;stop-opacity:1">
+                    <animate attributeName="stop-color" values="#00dfd8;#ff0080;#7928ca;#0070f3;#00dfd8" dur="3s" repeatCount="indefinite" />
+                </stop>
+            </linearGradient>
+        </defs>
+    `;
+    document.body.appendChild(svg);
+    
+    sendToast("🌈 | RGB ativado nas barras de XP!", 2000);
+})();
+
 /* Inject */
 if (!/^https?:\/\/([a-z0-9-]+\.)?khanacademy\.org/.test(window.location.href)) { 
     alert("❌ | KhanDark não iniciou!\n\nVocê precisa executar o Script na Plataforma Khan Academy! (https://pt.khanacademy.org/)"); 
