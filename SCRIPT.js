@@ -367,51 +367,42 @@ function setupMain(){
 (function () {
     const style = document.createElement('style');
     style.innerHTML = `
-        /* Barras de XP/Nível - Detectadas automaticamente */
+        /* Barras de XP/Nível com RGB Arco-íris */
         ._vtsimy,
         ._e296pg,
         [role="progressbar"] {
-            background: linear-gradient(90deg, #ff0080, #7928ca, #0070f3, #00dfd8, #7928ca, #ff0080) !important;
-            background-size: 300% 100% !important;
-            animation: rgbSlide 3s linear infinite !important;
-            box-shadow: 0 0 15px rgba(121, 40, 202, 0.6) !important;
+            background: linear-gradient(
+                90deg,
+                #ff0000 0%,
+                #ff7700 14%,
+                #ffff00 28%,
+                #00ff00 42%,
+                #00ffff 57%,
+                #0066ff 71%,
+                #9900ff 85%,
+                #ff0000 100%
+            ) !important;
+            background-size: 400% 100% !important;
+            animation: rgbRainbow 4s linear infinite !important;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5) !important;
+            border-radius: 999px !important;
+            overflow: hidden !important;
         }
         
-        /* Animação do gradiente RGB */
-        @keyframes rgbSlide {
+        /* Animação arco-íris fluida */
+        @keyframes rgbRainbow {
             0% { background-position: 0% 50%; }
-            100% { background-position: 300% 50%; }
+            100% { background-position: 400% 50%; }
         }
         
-        /* Extra: Círculos de progresso SVG (se existirem) */
-        circle[stroke]:not([stroke="none"]) {
-            stroke: url(#rgbGradient) !important;
-            filter: drop-shadow(0 0 8px rgba(121, 40, 202, 0.8));
+        /* Container da barra também arredondado */
+        ._vtsimy,
+        ._e296pg {
+            border-radius: 999px !important;
         }
     `;
     document.head.appendChild(style);
-    
-    // Criar gradiente SVG para círculos (caso existam)
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.style.cssText = "position:absolute;width:0;height:0;";
-    svg.innerHTML = `
-        <defs>
-            <linearGradient id="rgbGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#ff0080;stop-opacity:1">
-                    <animate attributeName="stop-color" values="#ff0080;#7928ca;#0070f3;#00dfd8;#ff0080" dur="3s" repeatCount="indefinite" />
-                </stop>
-                <stop offset="50%" style="stop-color:#0070f3;stop-opacity:1">
-                    <animate attributeName="stop-color" values="#0070f3;#00dfd8;#ff0080;#7928ca;#0070f3" dur="3s" repeatCount="indefinite" />
-                </stop>
-                <stop offset="100%" style="stop-color:#00dfd8;stop-opacity:1">
-                    <animate attributeName="stop-color" values="#00dfd8;#ff0080;#7928ca;#0070f3;#00dfd8" dur="3s" repeatCount="indefinite" />
-                </stop>
-            </linearGradient>
-        </defs>
-    `;
-    document.body.appendChild(svg);
-    
-    sendToast("🌈 | RGB ativado na barra de XP!", 2000);
+    sendToast("🌈 | RGB Arco-íris ativado!", 2000);
 })();
 
     /* QuestionSpoof */
