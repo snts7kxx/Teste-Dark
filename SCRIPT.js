@@ -34,7 +34,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 0.6; }
         }
         
         @keyframes fadeInOut {
@@ -503,7 +503,7 @@ function setupMain(){
                         body = JSON.stringify(bodyObj);
                         if (input instanceof Request) input = new Request(input, { body });
                         else init.body = body;
-                        sendToast(`✏️ | ${answers.length} respostas marcadas!`, 2000);
+                        sendToast(`✏️ | ${answers.length} respostas marcadas!`, 1500);
                     }
                 } catch (e) { console.error(`🚨 Error @ questionSpoof.js\n${e}`); }
             }
@@ -530,7 +530,7 @@ function setupMain(){
                         body = JSON.stringify(bodyObj);
                         if (input instanceof Request) { input = new Request(input, { body: body }); } 
                         else init.body = body; 
-                        sendToast("🔄 | Vídeo concluído!", 1250)
+                        sendToast("🔄 | Vídeo concluído!", 1000)
                     }
                 } catch (e) { console.error(`🚨 Error @ videoSpoof.js\n${e}`); }
             }
@@ -576,7 +576,7 @@ function setupMain(){
                         sendToast("🎉 | Questão concluída!", 1500);
                     }
                 }
-                await delay(2500);
+                await delay(1900);
             }
         })();
     })();
@@ -608,13 +608,10 @@ loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', '
     updateLoadingProgress(100, 'Finalizado!');
 
     const elapsedTime = Date.now() - startTime;
-    const remainingTime = Math.max(0, 3000 - elapsedTime);
+    const remainingTime = Math.max(0, 3000 - elapsedTime); <--- TEMPO DA TELA DE CARREGAMENTO.
     await delay(remainingTime);
 
     sendToast("💜 | KhanDark iniciou!");
-    sendToast("Entre no nosso Discord!");
-
-    await delay(2000);
 
     hideSplashScreen();
     setupMain();
