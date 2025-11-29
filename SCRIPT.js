@@ -34,7 +34,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 0.7; }
         }
         
         @keyframes fadeInOut {
@@ -316,7 +316,7 @@ async function showSplashScreen() {
             <div class="kd-plugin-status" id="pluginStatus">Preparando módulos...</div>
         </div>
 
-        <div class="kd-version">v1.3 • SNTS7KXX</div>
+        <div class="kd-version">v2.0 • SNTS7KXX</div>
     `; 
     
     splashScreen.insertBefore(particlesContainer, splashScreen.firstChild);
@@ -336,7 +336,7 @@ function updateLoadingProgress(percent, status) {
 
 async function hideSplashScreen() { 
     document.getElementById('loadingText').textContent = 'CONCLUÍDO';
-    await delay(1000);
+    await delay(500);
     splashScreen.style.opacity = '0'; 
     setTimeout(() => splashScreen.remove(), 1000); 
 }
@@ -503,7 +503,7 @@ function setupMain(){
                         body = JSON.stringify(bodyObj);
                         if (input instanceof Request) input = new Request(input, { body });
                         else init.body = body;
-                        sendToast(`✏️ | ${answers.length} respostas marcadas!`, 1500);
+                        sendToast(`✏️ | ${answers.length} respostas marcadas!`, 2000);
                     }
                 } catch (e) { console.error(`🚨 Error @ questionSpoof.js\n${e}`); }
             }
@@ -608,10 +608,12 @@ loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', '
     updateLoadingProgress(100, 'Finalizado!');
 
     const elapsedTime = Date.now() - startTime;
-    const remainingTime = Math.max(0, 3000 - elapsedTime); <--- TEMPO DA TELA DE CARREGAMENTO.
+    const remainingTime = Math.max(0, 3000 - elapsedTime);
     await delay(remainingTime);
 
     sendToast("💜 | KhanDark iniciou!");
+
+    await delay(2000);
 
     hideSplashScreen();
     setupMain();
