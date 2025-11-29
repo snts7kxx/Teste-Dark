@@ -363,46 +363,72 @@ async function loadCss(url) {
 /* Main Functions */ 
 function setupMain(){
 
-/* XP Bar RGB */
+/* XP Bar RGB - VERSÃO FORÇADA */
 (function () {
+    // Injetar CSS
     const style = document.createElement('style');
+    style.id = 'khandark-rgb';
     style.innerHTML = `
-        /* Barras de XP/Nível com RGB Arco-íris */
+        /* FORÇAR bordas arredondadas */
         ._vtsimy,
         ._e296pg,
-        [role="progressbar"] {
-            background: linear-gradient(
-                90deg,
-                #ff0000 0%,
-                #ff7700 14%,
-                #ffff00 28%,
-                #00ff00 42%,
-                #00ffff 57%,
-                #0066ff 71%,
-                #9900ff 85%,
-                #ff0000 100%
-            ) !important;
-            background-size: 400% 100% !important;
-            animation: rgbRainbow 4s linear infinite !important;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5) !important;
+        [role="progressbar"],
+        [role="progressbar"] > * {
             border-radius: 999px !important;
             overflow: hidden !important;
         }
         
-        /* Animação arco-íris fluida */
-        @keyframes rgbRainbow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 400% 50%; }
-        }
-        
-        /* Container da barra também arredondado */
+        /* RGB Arco-íris ANIMADO */
         ._vtsimy,
         ._e296pg {
+            background: linear-gradient(
+                90deg,
+                #ff0000,
+                #ff7700,
+                #ffdd00,
+                #00ff00,
+                #00ffff,
+                #0066ff,
+                #9900ff,
+                #ff0000
+            ) !important;
+            background-size: 400% 100% !important;
+            animation: kd-rainbow 3s linear infinite !important;
             border-radius: 999px !important;
+        }
+        
+        @keyframes kd-rainbow {
+            0% { background-position: 0% center; }
+            100% { background-position: 400% center; }
         }
     `;
     document.head.appendChild(style);
-    sendToast("🌈 | RGB Arco-íris ativado!", 2000);
+    
+    // Função para aplicar estilo inline (FORÇA BRUTA)
+    function forceRGB() {
+        const bars = document.querySelectorAll('._vtsimy, ._e296pg, [role="progressbar"]');
+        
+        bars.forEach(bar => {
+            // Forçar inline style
+            bar.style.background = 'linear-gradient(90deg, #ff0000, #ff7700, #ffdd00, #00ff00, #00ffff, #0066ff, #9900ff, #ff0000)';
+            bar.style.backgroundSize = '400% 100%';
+            bar.style.animation = 'kd-rainbow 3s linear infinite';
+            bar.style.borderRadius = '999px';
+            bar.style.overflow = 'hidden';
+        });
+    }
+    
+    // Aplicar imediatamente
+    forceRGB();
+    
+    // Reaplicar sempre que a página mudar
+    const observer = new MutationObserver(forceRGB);
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // Reaplicar a cada 2 segundos (garantia)
+    setInterval(forceRGB, 2000);
+    
+    sendToast("🌈 | RGB FORÇADO ativado!", 2000);
 })();
 
     /* QuestionSpoof */
