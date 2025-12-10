@@ -687,7 +687,7 @@ loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', '
 .then(()=>{ 
     DarkReader.setFetchMethod(window.fetch); 
     DarkReader.enable(); 
-    updateLoadingProgress(33, 'DarkReader carregado');
+        updateLoadingProgress(33, 'DarkReader carregado');
 })
 .then(() => loadCss('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css'))
 .then(() => {
@@ -695,4 +695,18 @@ loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', '
     return loadScript('https://cdn.jsdelivr.net/npm/toastify-js', 'Toastify');
 })
 .then(async () => {    
-    updateLoadingProgress(100, 'Final
+    updateLoadingProgress(100, 'Finalizado!');
+
+    const elapsedTime = Date.now() - startTime;
+    const remainingTime = Math.max(0, 3000 - elapsedTime);
+    await delay(remainingTime);
+
+    sendToast("💜 | KhanDark iniciou!");
+
+    await delay(2000);
+
+    hideSplashScreen();
+    setupMain();
+
+    console.clear();
+});
