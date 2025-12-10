@@ -725,8 +725,85 @@ function setupMain(){
         };
     })();
 
-    /* MinuteFarm */
+        /* MinuteFarm */
     (function () {
         const originalFetch = window.fetch;
 
-        window.fetch = async function (
+        window.fetch = async function (input, init = {}) {
+            let body;
+            if (input instanceof Request) body = await input.clone().text();
+            else if (init.body) body = init.body;
+            if (body && input.url.includes("mark_conversions")) {
+                try {
+                    if (body.includes("termination_event")) { sendToast("🚫 | Limite de Tempo Bloqueado!", 1200); return; }
+                } catch (e) { console.error(`🚨 Error @ minuteFarm.js\n${e}`); }
+            }
+            return originalFetch.apply(this, arguments);
+        };
+    })();
+
+    /* AutoAnswer */
+    (function () {
+        const baseSelectors = [
+            `.perseus_hm3uu-sq`,
+            `[data-testid="exercise-check-answer"]`, 
+            `[data-testid="exercise-next-question"]`, 
+            `._1wi2tma4`
+        ];
+
+        khanDarkDominates = true;
+
+        (async () => { 
+            while (khanDarkDominates) {                    
+                const selectorsToCheck = [...baseSelectors];
+
+                for (const q of selectorsToCheck) {
+                    findAndClickBySelector(q);
+                    if (document.querySelector(q+"> div") && document.querySelector(q+"> div").innerText === "Mostrar resumo") {
+                        sendToast("🎉 | Questão concluída!", 1500);
+                    }
+                }
+                await delay(1900);
+            }
+        })();
+    })();
+}
+
+/* Inject */
+if (!/^https?:\/\/([a-z0-9-]+\.)?khanacademy\.org/.test(window.location.href)) { 
+    alert("❌ | KhanDark não iniciou!\n\nVocê precisa executar o Script na Plataforma Khan Academy! (https://pt.khanacademy.org/)"); 
+    window.location.href = "https://pt.khanacademy.org/"; 
+}
+
+showSplashScreen();
+updateLoadingProgress(0, 'Inicializando...');
+
+const startTime = Date.now();
+
+loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', 'DarkReader')
+.then(()=>{ 
+    DarkReader.setFetchMethod(window.fetch); 
+    DarkReader.enable(); 
+    updateLoadingProgress(33, 'DarkReader carregado');
+})
+.then(() => loadCss('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css'))
+.then(() => {
+    updateLoadingProgress(66, 'Estilos carregados');
+    return loadScript('https://cdn.jsdelivr.net/npm/toastify-js', 'Toastify');
+})
+.then(async () => {    
+    updateLoadingProgress(100, 'Finalizado!');
+
+    const elapsedTime = Date.now() - startTime;
+    const remainingTime = Math.max(0, 3000 - elapsedTime);
+    await delay(remainingTime);
+
+    sendToast("💜 | KhanDark iniciou!");
+
+    await delay(2000);
+
+    hideSplashScreen();
+    setupMain();
+
+    console.clear();
+});
