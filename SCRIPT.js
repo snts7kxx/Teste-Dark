@@ -7,56 +7,107 @@ const splashScreen = document.createElement('div');
 document.head.appendChild(Object.assign(document.createElement("style"),{innerHTML:"@font-face{font-family:'MuseoSans';src:url('https://corsproxy.io/?url=https://r2.e-z.host/4d0a0bea-60f8-44d6-9e74-3032a64a9f32/ynddewua.ttf')format('truetype')}" }));
 document.head.appendChild(Object.assign(document.createElement('style'),{innerHTML:"::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #ffffff; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; } ::-webkit-scrollbar-thumb:hover { background: #555; }"}));
 
-/* Splash Screen Styles - BLACK & WHITE VERSION */
+/* Splash Screen Styles - VERSÃO ULTRA DETALHADA */
 document.head.appendChild(Object.assign(document.createElement('style'), {
     innerHTML: `
-        @keyframes gridMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-15px) translateX(10px) rotate(2deg); }
+            50% { transform: translateY(-8px) translateX(-10px) rotate(-1deg); }
+            75% { transform: translateY(-20px) translateX(5px) rotate(1deg); }
         }
         
-        @keyframes fadeInScale {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
+        @keyframes slideUp {
+            from { transform: translateY(80px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.8), 0 0 80px rgba(255, 255, 255, 0.6); }
+            0%, 100% { 
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                            0 0 40px rgba(255, 255, 255, 0.6),
+                            0 0 60px rgba(255, 255, 255, 0.4);
+            }
+            50% { 
+                text-shadow: 0 0 30px rgba(255, 255, 255, 1),
+                            0 0 60px rgba(255, 255, 255, 0.8),
+                            0 0 90px rgba(255, 255, 255, 0.6),
+                            0 0 120px rgba(255, 255, 255, 0.4);
+            }
         }
         
-        @keyframes rotate3d {
-            0% { transform: rotateY(0deg) rotateX(0deg); }
-            100% { transform: rotateY(360deg) rotateX(360deg); }
+        @keyframes hexSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 1;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            }
+            50% { 
+                transform: scale(1.3); 
+                opacity: 0.6;
+                box-shadow: 0 0 40px rgba(255, 255, 255, 1);
+            }
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(200%); opacity: 0; }
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(40px) translateX(40px); }
         }
         
         @keyframes scanline {
             0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
+            100% { transform: translateY(200%); }
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
+        @keyframes particleFloat {
+            0% { transform: translate(0, 0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
         }
         
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+        @keyframes borderGlow {
+            0%, 100% { 
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
+                           inset 0 0 10px rgba(255, 255, 255, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+                           0 0 40px rgba(255, 255, 255, 0.4),
+                           inset 0 0 20px rgba(255, 255, 255, 0.2);
+            }
         }
         
-        @keyframes dash {
-            to { stroke-dashoffset: 0; }
+        @keyframes rotate3d {
+            0% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+            100% { transform: perspective(1000px) rotateY(360deg) rotateX(360deg); }
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        @keyframes cornerExpand {
+            0%, 100% { width: 30px; height: 30px; }
+            50% { width: 50px; height: 50px; }
         }
         
         .kd-splash-screen {
@@ -73,7 +124,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             opacity: 0;
             transition: opacity 1s ease;
             user-select: none;
-            font-family: MuseoSans, 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
         
@@ -82,19 +133,45 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 2s linear infinite;
-            opacity: 0.6;
+                linear-gradient(rgba(255, 255, 255, 0.03) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 2px, transparent 2px),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            animation: gridMove 8s linear infinite;
+            opacity: 0.7;
+        }
+        
+        .kd-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .kd-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+            border-radius: 50%;
+            animation: particleFloat 8s infinite ease-in-out;
+            --tx: 0;
+            --ty: 0;
         }
         
         .kd-scanline {
             position: absolute;
             width: 100%;
-            height: 100px;
-            background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: scanline 4s linear infinite;
+            height: 150px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.08),
+                rgba(255, 255, 255, 0.03),
+                transparent
+            );
+            animation: scanline 6s linear infinite;
             pointer-events: none;
         }
         
@@ -102,7 +179,12 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                rgba(0, 0, 0, 0.3) 60%,
+                rgba(0, 0, 0, 0.8) 100%
+            );
             pointer-events: none;
         }
         
@@ -110,48 +192,87 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             position: relative;
             z-index: 2;
             text-align: center;
-            animation: fadeInScale 1s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: slideUp 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
         .kd-logo-container {
             position: relative;
-            margin-bottom: 60px;
-            animation: float 3s ease-in-out infinite;
+            margin-bottom: 50px;
+            padding: 40px;
+            animation: float 6s ease-in-out infinite;
         }
         
         .kd-logo-frame {
             position: relative;
-            padding: 30px 60px;
+            padding: 40px 80px;
             display: inline-block;
         }
         
-        .kd-logo-frame::before,
-        .kd-logo-frame::after {
-            content: '';
+        .kd-logo-border {
             position: absolute;
-            width: 80%;
-            height: 80%;
-            border: 2px solid white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: borderGlow 3s ease-in-out infinite;
         }
         
-        .kd-logo-frame::before {
+        .kd-logo-border.outer {
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .kd-logo-border.inner {
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border-color: rgba(255, 255, 255, 0.2);
+            animation-delay: 0.5s;
+        }
+        
+        .kd-corner-accent {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid white;
+            animation: cornerExpand 2s ease-in-out infinite;
+        }
+        
+        .kd-corner-accent.tl {
+            top: -5px;
+            left: -5px;
             border-right: none;
             border-bottom: none;
         }
         
-        .kd-logo-frame::after {
-            bottom: 0;
-            right: 0;
+        .kd-corner-accent.tr {
+            top: -5px;
+            right: -5px;
+            border-left: none;
+            border-bottom: none;
+            animation-delay: 0.5s;
+        }
+        
+        .kd-corner-accent.bl {
+            bottom: -5px;
+            left: -5px;
+            border-right: none;
+            border-top: none;
+            animation-delay: 1s;
+        }
+        
+        .kd-corner-accent.br {
+            bottom: -5px;
+            right: -5px;
             border-left: none;
             border-top: none;
+            animation-delay: 1.5s;
         }
         
         .kd-logo-text {
-            font-size: 84px;
+            font-size: 96px;
             font-weight: 900;
-            letter-spacing: 8px;
+            letter-spacing: 12px;
             position: relative;
             display: inline-block;
             text-transform: uppercase;
@@ -160,156 +281,228 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-logo-khan {
             color: white;
             text-shadow: 
-                0 0 10px rgba(255, 255, 255, 0.5),
-                0 0 20px rgba(255, 255, 255, 0.3),
-                4px 4px 0px rgba(255, 255, 255, 0.1);
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                5px 5px 0px rgba(255, 255, 255, 0.1),
+                10px 10px 0px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        .kd-logo-khan::before {
+            content: 'KHAN';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            z-index: -1;
+            opacity: 0.3;
         }
         
         .kd-logo-dark {
             color: #ffffff;
-            opacity: 0.7;
-            margin-left: 15px;
+            margin-left: 20px;
             text-shadow: 
-                0 0 20px rgba(255, 255, 255, 0.8),
-                0 0 40px rgba(255, 255, 255, 0.5);
+                0 0 20px rgba(255, 255, 255, 1),
+                0 0 40px rgba(255, 255, 255, 0.8),
+                0 0 60px rgba(255, 255, 255, 0.6);
+            animation: glow 3s ease-in-out infinite;
+            position: relative;
         }
         
         .kd-subtitle {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-            letter-spacing: 4px;
-            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            letter-spacing: 6px;
+            margin-top: 25px;
             font-weight: 300;
-            animation: slideDown 0.8s ease 0.3s both;
+            text-transform: uppercase;
+        }
+        
+        .kd-divider-container {
+            margin: 60px 0;
+            position: relative;
         }
         
         .kd-divider {
-            width: 400px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, white, transparent);
-            margin: 50px auto;
+            width: 500px;
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.8),
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            margin: 0 auto;
             position: relative;
-            opacity: 0.3;
         }
         
         .kd-divider::before,
         .kd-divider::after {
             content: '';
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: white;
             border-radius: 50%;
-            top: -4.5px;
+            top: -5px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                       0 0 30px rgba(255, 255, 255, 0.5);
+            animation: pulse 2s ease-in-out infinite;
         }
         
         .kd-divider::before { 
-            left: -5px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            left: -6px;
         }
+        
         .kd-divider::after { 
-            right: -5px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            right: -6px;
+            animation-delay: 1s;
+        }
+        
+        .kd-divider-line-small {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            margin: 15px auto 0;
         }
         
         .kd-loader-container {
-            margin: 50px 0;
+            margin: 60px 0;
+            position: relative;
         }
         
-        .kd-cube-loader {
-            width: 100px;
-            height: 100px;
+        .kd-hexagon-loader {
+            width: 120px;
+            height: 120px;
             margin: 0 auto;
             position: relative;
-            transform-style: preserve-3d;
-            animation: rotate3d 4s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .kd-cube {
+        .kd-hexagon {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid white;
-            border-radius: 4px;
+            border: 3px solid transparent;
+            border-radius: 15px;
+            animation: hexSpin 3s linear infinite;
         }
         
-        .kd-cube:nth-child(1) {
-            transform: translateZ(50px);
-            background: rgba(255, 255, 255, 0.05);
+        .kd-hexagon:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            border-top-color: rgba(255, 255, 255, 0.8);
+            border-bottom-color: rgba(255, 255, 255, 0.8);
         }
         
-        .kd-cube:nth-child(2) {
-            transform: rotateY(90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.03);
+        .kd-hexagon:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            border-top-color: rgba(255, 255, 255, 0.6);
+            border-bottom-color: rgba(255, 255, 255, 0.6);
+            animation-duration: 2s;
+            animation-direction: reverse;
         }
         
-        .kd-cube:nth-child(3) {
-            transform: rotateY(180deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.05);
+        .kd-hexagon:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            border-top-color: rgba(255, 255, 255, 0.4);
+            border-bottom-color: rgba(255, 255, 255, 0.4);
+            animation-duration: 1.5s;
         }
         
-        .kd-cube:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.03);
-        }
-        
-        .kd-cube:nth-child(5) {
-            transform: rotateX(90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .kd-cube:nth-child(6) {
-            transform: rotateX(-90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.03);
+        .kd-hexagon-core {
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, white, rgba(255, 255, 255, 0.5));
+            border-radius: 50%;
+            box-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.8),
+                0 0 40px rgba(255, 255, 255, 0.6),
+                0 0 60px rgba(255, 255, 255, 0.4);
+            animation: pulse 2s ease-in-out infinite;
         }
         
         .kd-loading-text {
             color: white;
-            font-size: 16px;
-            margin-top: 40px;
-            font-weight: 400;
-            letter-spacing: 3px;
+            font-size: 20px;
+            margin-top: 30px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            animation: fadeInOut 2.5s ease-in-out infinite;
             text-transform: uppercase;
-            animation: pulse 2s ease-in-out infinite;
         }
         
         .kd-loading-dots {
             display: inline-block;
-            width: 20px;
+            width: 30px;
             text-align: left;
         }
         
         .kd-progress-container {
-            width: 500px;
-            margin: 40px auto 20px;
+            width: 600px;
+            margin: 50px auto 25px;
             position: relative;
+        }
+        
+        .kd-progress-wrapper {
+            position: relative;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
         }
         
         .kd-progress-bar {
             width: 100%;
-            height: 4px;
+            height: 8px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
+            border-radius: 15px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                inset 0 2px 5px rgba(0, 0, 0, 0.5),
+                0 0 10px rgba(255, 255, 255, 0.1);
         }
         
         .kd-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0.5), 
-                rgba(255, 255, 255, 1), 
-                rgba(255, 255, 255, 0.5)
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0.9),
+                rgba(255, 255, 255, 1),
+                rgba(255, 255, 255, 0.9),
+                rgba(255, 255, 255, 0.4)
             );
             background-size: 200% 100%;
             width: 0%;
-            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             box-shadow: 
                 0 0 20px rgba(255, 255, 255, 0.8),
-                0 0 40px rgba(255, 255, 255, 0.5);
+                0 0 40px rgba(255, 255, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
             animation: shimmer 2s linear infinite;
             position: relative;
+            border-radius: 15px;
+        }
+        
+        .kd-progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            border-radius: 15px 15px 0 0;
         }
         
         .kd-progress-fill::after {
@@ -317,94 +510,76 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             position: absolute;
             top: 0;
             right: 0;
-            width: 20px;
+            width: 30px;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8));
-            filter: blur(5px);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.8)
+            );
+            filter: blur(8px);
+            animation: slide 2s infinite;
         }
         
         .kd-progress-percent {
             text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 18px;
-            margin-top: 15px;
-            font-weight: 500;
-            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 22px;
+            margin-top: 20px;
+            font-weight: 600;
+            letter-spacing: 3px;
             font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         
         .kd-plugin-status {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
-            margin-top: 25px;
-            min-height: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            margin-top: 30px;
+            min-height: 25px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-weight: 300;
+            font-weight: 400;
         }
         
-        .kd-decorative-lines {
+        .kd-decorative-circles {
             position: absolute;
             width: 100%;
             height: 100%;
             pointer-events: none;
         }
         
-        .kd-line {
+        .kd-circle {
             position: absolute;
-            background: white;
-            opacity: 0.1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
         }
         
-        .kd-line.horizontal {
-            width: 100%;
-            height: 1px;
+        .kd-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         
-        .kd-line.vertical {
-            width: 1px;
-            height: 100%;
+        .kd-circle:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 1s;
         }
         
-        .kd-line:nth-child(1) { top: 10%; left: 0; }
-        .kd-line:nth-child(2) { top: 90%; left: 0; }
-        .kd-line:nth-child(3) { top: 0; left: 10%; }
-        .kd-line:nth-child(4) { top: 0; left: 90%; }
-        
-        .kd-corner-accent {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid white;
-            opacity: 0.3;
-        }
-        
-        .kd-corner-accent.top-left {
-            top: 30px;
-            left: 30px;
-            border-right: none;
-            border-bottom: none;
-        }
-        
-        .kd-corner-accent.top-right {
-            top: 30px;
-            right: 30px;
-            border-left: none;
-            border-bottom: none;
-        }
-        
-        .kd-corner-accent.bottom-left {
-            bottom: 30px;
-            left: 30px;
-            border-right: none;
-            border-top: none;
-        }
-        
-        .kd-corner-accent.bottom-right {
-            bottom: 30px;
-            right: 30px;
-            border-left: none;
-            border-top: none;
+        .kd-circle:nth-child(3) {
+            width: 700px;
+            height: 700px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 2s;
         }
         
         .kd-version {
@@ -413,13 +588,168 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             left: 50%;
             transform: translateX(-50%);
             color: rgba(255, 255, 255, 0.4);
-            font-size: 11px;
-            letter-spacing: 3px;
+            font-size: 12px;
+            letter-spacing: 4px;
             font-weight: 300;
+            text-transform: uppercase;
         }
+        
+        .kd-tech-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .kd-tech-line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .kd-tech-line.h1 { width: 100%; height: 1px; top: 15%; }
+        .kd-tech-line.h2 { width: 100%; height: 1px; top: 85%; }
+        .kd-tech-line.v1 { width: 1px; height: 100%; left: 15%; }
+        .kd-tech-line.v2 { width: 1px; height: 100%; left: 85%; }
     `
 }));
 
+let dotsInterval;
+async function showSplashScreen() { 
+    const splashScreen = document.createElement('div');
+    splashScreen.className = 'kd-splash-screen';
+
+    // Criar partículas
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'kd-particles';
+    for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'kd-particle';
+        const size = Math.random() * 6 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+        particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 5 + 6) + 's';
+        particlesContainer.appendChild(particle);
+    }
+
+    splashScreen.innerHTML = `
+        <div class="kd-grid-background"></div>
+        <div class="kd-scanline"></div>
+        <div class="kd-vignette"></div>
+        
+        <div class="kd-tech-lines">
+            <div class="kd-tech-line h1"></div>
+            <div class="kd-tech-line h2"></div>
+            <div class="kd-tech-line v1"></div>
+            <div class="kd-tech-line v2"></div>
+        </div>
+        
+        <div class="kd-decorative-circles">
+            <div class="kd-circle"></div>
+            <div class="kd-circle"></div>
+            <div class="kd-circle"></div>
+        </div>
+
+        <div class="kd-splash-content">
+            <div class="kd-logo-container">
+                <div class="kd-corner-accent tl"></div>
+                <div class="kd-corner-accent tr"></div>
+                <div class="kd-corner-accent bl"></div>
+                <div class="kd-corner-accent br"></div>
+                
+                <div class="kd-logo-frame">
+                    <div class="kd-logo-border outer"></div>
+                    <div class="kd-logo-border inner"></div>
+                    
+                    <div class="kd-logo-text">
+                        <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">DARK</span>
+                    </div>
+                </div>
+                <div class="kd-subtitle">ADVANCED LEARNING SYSTEM</div>
+            </div>
+
+            <div class="kd-divider-container">
+                <div class="kd-divider"></div>
+                <div class="kd-divider-line-small"></div>
+            </div>
+
+            <div class="kd-loader-container">
+                <div class="kd-hexagon-loader">
+                    <div class="kd-hexagon"></div>
+                    <div class="kd-hexagon"></div>
+                    <div class="kd-hexagon"></div>
+                    <div class="kd-hexagon-core"></div>
+                </div>
+            </div>
+
+            <div class="kd-loading-text">
+                <span id="loadingText">INICIALIZANDO</span><span class="kd-loading-dots" id="loadingDots"></span>
+            </div>
+
+            <div class="kd-progress-container">
+                <div class="kd-progress-wrapper">
+                    <div class="kd-progress-bar">
+                        <div class="kd-progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                <div class="kd-progress-percent" id="progressPercent">0%</div>
+            </div>
+
+            <div class="kd-plugin-status" id="pluginStatus">Preparando módulos do sistema...</div>
+        </div>
+
+        <div class="kd-version">v2.0 • SNTS7KXX • BLACK & WHITE PREMIUM EDITION</div>
+    `; 
+
+    splashScreen.insertBefore(particlesContainer, splashScreen.firstChild);
+    document.body.appendChild(splashScreen); 
+    setTimeout(() => splashScreen.style.opacity = '1', 10);
+    
+    // Animação dos dots
+    let dots = 0;
+    dotsInterval = setInterval(() => {
+        const dotsEl = document.getElementById('loadingDots');
+        if (dotsEl) {
+            dots = (dots + 1) % 4;
+            dotsEl.textContent = '.'.repeat(dots);
+        }
+    }, 400);
+    
+    return splashScreen;
+}
+
+function updateLoadingProgress(percent, status) {
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+    const pluginStatus = document.getElementById('pluginStatus');
+
+    if (progressFill) progressFill.style.width = `${percent}%`;
+    if (progressPercent) progressPercent.textContent = `${Math.floor(percent)}%`;
+    if (pluginStatus) pluginStatus.textContent = status;
+}
+
+async function hideSplashScreen(splashScreen) { 
+    if (dotsInterval) clearInterval(dotsInterval);
+    const loadingText = document.getElementById('loadingText');
+    const loadingDots = document.getElementById('loadingDots');
+    if (loadingText) loadingText.textContent = 'CONCLUÍDO';
+    if (loadingDots) loadingDots.textContent = '';
+    
+    await new Promise(resolve => setTimeout(resolve, 800));
+    splashScreen.style.opacity = '0'; 
+    setTimeout(() => splashScreen.remove(), 1000); 
+}
+
+// Exemplo de uso:
+// const splash = await showSplashScreen();
+// updateLoadingProgress(33, 'Carregando módulo 1...');
+// updateLoadingProgress(66, 'Carregando módulo 2...');
+// updateLoadingProgress(100, 'Finalizado!');
+// await hideSplashScreen(splash);
 /* Emmiter */
 class EventEmitter{constructor(){this.events={}}on(t,e){"string"==typeof t&&(t=[t]),t.forEach(t=>{this.events[t]||(this.events[t]=[]),this.events[t].push(e)})}off(t,e){"string"==typeof t&&(t=[t]),t.forEach(t=>{this.events[t]&&(this.events[t]=this.events[t].filter(t=>t!==e))})}emit(t,...e){this.events[t]&&this.events[t].forEach(t=>{t(...e)})}once(t,e){"string"==typeof t&&(t=[t]);let s=(...i)=>{e(...i),this.off(t,s)};this.on(t,s)}};
 const plppdo = new EventEmitter();
