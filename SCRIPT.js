@@ -7,56 +7,60 @@ const splashScreen = document.createElement('div');
 document.head.appendChild(Object.assign(document.createElement("style"),{innerHTML:"@font-face{font-family:'MuseoSans';src:url('https://corsproxy.io/?url=https://r2.e-z.host/4d0a0bea-60f8-44d6-9e74-3032a64a9f32/ynddewua.ttf')format('truetype')}" }));
 document.head.appendChild(Object.assign(document.createElement('style'),{innerHTML:"::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #ffffff; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; } ::-webkit-scrollbar-thumb:hover { background: #555; }"}));
 
-/* Splash Screen Styles - BLACK & WHITE VERSION */
+/* Splash Screen Styles - VERSÃO PRETO E BRANCO */
 document.head.appendChild(Object.assign(document.createElement('style'), {
     innerHTML: `
-        @keyframes gridMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(30px); }
         }
         
-        @keyframes fadeInScale {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.8), 0 0 80px rgba(255, 255, 255, 0.6); }
+            0%, 100% { text-shadow: 0 0 30px rgba(255,255,255,0.8); }
+            50% { text-shadow: 0 0 40px rgba(255,255,255,1), 0 0 80px rgba(255,255,255,0.6); }
         }
         
-        @keyframes rotate3d {
-            0% { transform: rotateY(0deg) rotateX(0deg); }
-            100% { transform: rotateY(360deg) rotateX(360deg); }
-        }
-        
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
+        @keyframes hexSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         
         @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         
-        @keyframes dash {
-            to { stroke-dashoffset: 0; }
+        @keyframes slide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        @keyframes dotBlink {
+            0%, 20%, 50%, 100% { opacity: 0; }
+            40% { opacity: 1; }
+            60% { opacity: 0; }
         }
         
         .kd-splash-screen {
@@ -65,7 +69,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000000;
+            background: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,123 +77,83 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             opacity: 0;
             transition: opacity 1s ease;
             user-select: none;
-            font-family: MuseoSans, 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Courier New', MuseoSans, monospace;
             overflow: hidden;
         }
         
-        .kd-grid-background {
+        .kd-particles {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 2s linear infinite;
-            opacity: 0.6;
+            overflow: hidden;
         }
         
-        .kd-scanline {
+        .kd-particle {
             position: absolute;
-            width: 100%;
-            height: 100px;
-            background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: scanline 4s linear infinite;
-            pointer-events: none;
-        }
-        
-        .kd-vignette {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-            pointer-events: none;
+            background: white;
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.05;
         }
         
         .kd-splash-content {
             position: relative;
             z-index: 2;
             text-align: center;
-            animation: fadeInScale 1s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: slideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            max-width: 600px;
         }
         
         .kd-logo-container {
             position: relative;
-            margin-bottom: 60px;
-            animation: float 3s ease-in-out infinite;
+            margin-bottom: 50px;
+            border: 2px solid white;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);
+            box-shadow: inset 0 0 30px rgba(255,255,255,0.05), 0 0 40px rgba(0,0,0,0.8);
         }
         
-        .kd-logo-frame {
-            position: relative;
-            padding: 30px 60px;
-            display: inline-block;
-        }
-        
-        .kd-logo-frame::before,
-        .kd-logo-frame::after {
+        .kd-logo-container::before {
             content: '';
             position: absolute;
-            width: 80%;
-            height: 80%;
-            border: 2px solid white;
-        }
-        
-        .kd-logo-frame::before {
             top: 0;
             left: 0;
-            border-right: none;
-            border-bottom: none;
-        }
-        
-        .kd-logo-frame::after {
-            bottom: 0;
             right: 0;
-            border-left: none;
-            border-top: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, white, transparent);
+            animation: scan 3s linear infinite;
         }
         
         .kd-logo-text {
-            font-size: 84px;
-            font-weight: 900;
+            font-size: 64px;
+            font-weight: bold;
             letter-spacing: 8px;
             position: relative;
             display: inline-block;
-            text-transform: uppercase;
+            color: white;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            font-family: 'Courier New', monospace;
         }
         
         .kd-logo-khan {
-            color: white;
-            text-shadow: 
-                0 0 10px rgba(255, 255, 255, 0.5),
-                0 0 20px rgba(255, 255, 255, 0.3),
-                4px 4px 0px rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-weight: 900;
         }
         
         .kd-logo-dark {
             color: #ffffff;
-            opacity: 0.7;
-            margin-left: 15px;
-            text-shadow: 
-                0 0 20px rgba(255, 255, 255, 0.8),
-                0 0 40px rgba(255, 255, 255, 0.5);
-        }
-        
-        .kd-subtitle {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-            letter-spacing: 4px;
-            margin-top: 20px;
+            animation: glow 2s ease-in-out infinite;
             font-weight: 300;
-            animation: slideDown 0.8s ease 0.3s both;
+            letter-spacing: 12px;
         }
         
         .kd-divider {
-            width: 400px;
+            width: 350px;
             height: 1px;
             background: linear-gradient(90deg, transparent, white, transparent);
-            margin: 50px auto;
+            margin: 40px auto;
             position: relative;
-            opacity: 0.3;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
         }
         
         .kd-divider::before,
@@ -201,113 +165,93 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             background: white;
             border-radius: 50%;
             top: -4.5px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
         
-        .kd-divider::before { 
-            left: -5px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-        .kd-divider::after { 
-            right: -5px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
+        .kd-divider::before { left: 0; }
+        .kd-divider::after { right: 0; }
         
         .kd-loader-container {
             margin: 50px 0;
         }
         
-        .kd-cube-loader {
+        .kd-hexagon-loader {
             width: 100px;
             height: 100px;
             margin: 0 auto;
             position: relative;
-            transform-style: preserve-3d;
-            animation: rotate3d 4s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .kd-cube {
+        .kd-hexagon {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 70px;
+            height: 70px;
             border: 2px solid white;
-            border-radius: 4px;
+            border-radius: 8px;
+            animation: hexSpin 2s linear infinite;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
         
-        .kd-cube:nth-child(1) {
-            transform: translateZ(50px);
-            background: rgba(255, 255, 255, 0.05);
+        .kd-hexagon:nth-child(2) {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255,255,255,0.6);
+            animation-duration: 1.5s;
+            animation-direction: reverse;
+            box-shadow: 0 0 15px rgba(255,255,255,0.1);
         }
         
-        .kd-cube:nth-child(2) {
-            transform: rotateY(90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.03);
-        }
-        
-        .kd-cube:nth-child(3) {
-            transform: rotateY(180deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .kd-cube:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.03);
-        }
-        
-        .kd-cube:nth-child(5) {
-            transform: rotateX(90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .kd-cube:nth-child(6) {
-            transform: rotateX(-90deg) translateZ(50px);
-            background: rgba(255, 255, 255, 0.03);
+        .kd-hexagon-core {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 2px;
+            box-shadow: 0 0 25px rgba(255,255,255,0.8);
+            animation: pulse 1.5s ease-in-out infinite;
         }
         
         .kd-loading-text {
             color: white;
             font-size: 16px;
-            margin-top: 40px;
-            font-weight: 400;
+            margin-top: 30px;
+            font-weight: 600;
             letter-spacing: 3px;
-            text-transform: uppercase;
-            animation: pulse 2s ease-in-out infinite;
+            animation: fadeInOut 2s ease-in-out infinite;
+            font-family: 'Courier New', monospace;
         }
         
-        .kd-loading-dots {
-            display: inline-block;
-            width: 20px;
-            text-align: left;
+        .kd-loading-text::after {
+            content: '';
+            animation: dotBlink 1.4s infinite;
         }
         
         .kd-progress-container {
-            width: 500px;
-            margin: 40px auto 20px;
+            width: 450px;
+            margin: 40px auto 25px;
             position: relative;
         }
         
         .kd-progress-bar {
             width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 2px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.05);
         }
         
         .kd-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0.5), 
-                rgba(255, 255, 255, 1), 
-                rgba(255, 255, 255, 0.5)
-            );
+            background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.9), rgba(255,255,255,0.4));
             background-size: 200% 100%;
             width: 0%;
             transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: 
-                0 0 20px rgba(255, 255, 255, 0.8),
-                0 0 40px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 25px rgba(255,255,255,0.6);
             animation: shimmer 2s linear infinite;
             position: relative;
         }
@@ -316,106 +260,80 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             content: '';
             position: absolute;
             top: 0;
+            left: 0;
             right: 0;
-            width: 20px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8));
-            filter: blur(5px);
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: slide 1.5s infinite;
         }
         
         .kd-progress-percent {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 18px;
-            margin-top: 15px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            font-variant-numeric: tabular-nums;
+            text-align: right;
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
         }
         
         .kd-plugin-status {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
             margin-top: 25px;
             min-height: 20px;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-        
-        .kd-decorative-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        
-        .kd-line {
-            position: absolute;
-            background: white;
-            opacity: 0.1;
-        }
-        
-        .kd-line.horizontal {
-            width: 100%;
-            height: 1px;
-        }
-        
-        .kd-line.vertical {
-            width: 1px;
-            height: 100%;
-        }
-        
-        .kd-line:nth-child(1) { top: 10%; left: 0; }
-        .kd-line:nth-child(2) { top: 90%; left: 0; }
-        .kd-line:nth-child(3) { top: 0; left: 10%; }
-        .kd-line:nth-child(4) { top: 0; left: 90%; }
-        
-        .kd-corner-accent {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid white;
-            opacity: 0.3;
-        }
-        
-        .kd-corner-accent.top-left {
-            top: 30px;
-            left: 30px;
-            border-right: none;
-            border-bottom: none;
-        }
-        
-        .kd-corner-accent.top-right {
-            top: 30px;
-            right: 30px;
-            border-left: none;
-            border-bottom: none;
-        }
-        
-        .kd-corner-accent.bottom-left {
-            bottom: 30px;
-            left: 30px;
-            border-right: none;
-            border-top: none;
-        }
-        
-        .kd-corner-accent.bottom-right {
-            bottom: 30px;
-            right: 30px;
-            border-left: none;
-            border-top: none;
+            font-family: 'Courier New', monospace;
         }
         
         .kd-version {
             position: absolute;
-            bottom: 40px;
+            bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255,255,255,0.3);
             font-size: 11px;
-            letter-spacing: 3px;
-            font-weight: 300;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            width: 200px;
+        }
+        
+        .kd-corner {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            z-index: 10000;
+        }
+        
+        .kd-corner-tl {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .kd-corner-tr {
+            top: 20px;
+            right: 20px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .kd-corner-bl {
+            bottom: 20px;
+            left: 20px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .kd-corner-br {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
         }
     `
 }));
@@ -430,55 +348,53 @@ new MutationObserver((mutationsList) => { for (let mutation of mutationsList) if
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const findAndClickBySelector = selector => { const element = document.querySelector(selector); if (element) { element.click(); } };
 
-function sendToast(text, duration=5000, gravity='bottom') { Toastify({ text: text, duration: duration, gravity: gravity, position: "center", stopOnFocus: true, style: { background: "#000000", color: "#ffffff", border: "1px solid rgba(255,255,255,0.2)" } }).showToast(); };
+function sendToast(text, duration=5000, gravity='bottom') { Toastify({ text: text, duration: duration, gravity: gravity, position: "center", stopOnFocus: true, style: { background: "#1a1a1a", color: "#ffffff", border: "1px solid #ffffff" } }).showToast(); };
 
-let dotsInterval;
 async function showSplashScreen() { 
     splashScreen.className = 'kd-splash-screen';
 
-    splashScreen.innerHTML = `
-        <div class="kd-grid-background"></div>
-        <div class="kd-scanline"></div>
-        <div class="kd-vignette"></div>
-        
-        <div class="kd-decorative-lines">
-            <div class="kd-line horizontal"></div>
-            <div class="kd-line horizontal"></div>
-            <div class="kd-line vertical"></div>
-            <div class="kd-line vertical"></div>
-        </div>
-        
-        <div class="kd-corner-accent top-left"></div>
-        <div class="kd-corner-accent top-right"></div>
-        <div class="kd-corner-accent bottom-left"></div>
-        <div class="kd-corner-accent bottom-right"></div>
+    // Criar partículas
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'kd-particles';
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'kd-particle';
+        particle.style.width = Math.random() * 4 + 1 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+        particlesContainer.appendChild(particle);
+    }
 
+    // Cantos decorativos
+    const corners = ['tl', 'tr', 'bl', 'br'];
+    corners.forEach(pos => {
+        const corner = document.createElement('div');
+        corner.className = `kd-corner kd-corner-${pos}`;
+        splashScreen.appendChild(corner);
+    });
+
+    splashScreen.innerHTML += `
         <div class="kd-splash-content">
             <div class="kd-logo-container">
-                <div class="kd-logo-frame">
-                    <div class="kd-logo-text">
-                        <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">DARK</span>
-                    </div>
+                <div class="kd-logo-text">
+                    <span class="kd-logo-khan">KHAN</span><br><span class="kd-logo-dark">DARK</span>
                 </div>
-                <div class="kd-subtitle">ADVANCED LEARNING SYSTEM</div>
             </div>
 
             <div class="kd-divider"></div>
 
             <div class="kd-loader-container">
-                <div class="kd-cube-loader">
-                    <div class="kd-cube"></div>
-                    <div class="kd-cube"></div>
-                    <div class="kd-cube"></div>
-                    <div class="kd-cube"></div>
-                    <div class="kd-cube"></div>
-                    <div class="kd-cube"></div>
+                <div class="kd-hexagon-loader">
+                    <div class="kd-hexagon"></div>
+                    <div class="kd-hexagon"></div>
+                    <div class="kd-hexagon-core"></div>
                 </div>
             </div>
 
-            <div class="kd-loading-text">
-                <span id="loadingText">INICIALIZANDO</span><span class="kd-loading-dots" id="loadingDots"></span>
-            </div>
+            <div class="kd-loading-text" id="loadingText">INICIALIZANDO</div>
 
             <div class="kd-progress-container">
                 <div class="kd-progress-bar">
@@ -487,22 +403,15 @@ async function showSplashScreen() {
                 <div class="kd-progress-percent" id="progressPercent">0%</div>
             </div>
 
-            <div class="kd-plugin-status" id="pluginStatus">Preparando módulos do sistema...</div>
+            <div class="kd-plugin-status" id="pluginStatus">Preparando módulos...</div>
         </div>
 
-        <div class="kd-version">v2.0 • SNTS7KXX • BLACK & WHITE EDITION</div>
+        <div class="kd-version">v2.0 • SNTS7KXX</div>
     `; 
 
+    splashScreen.insertBefore(particlesContainer, splashScreen.firstChild);
     document.body.appendChild(splashScreen); 
     setTimeout(() => splashScreen.style.opacity = '1', 10);
-    
-    // Animação dos dots
-    let dots = 0;
-    dotsInterval = setInterval(() => {
-        dots = (dots + 1) % 4;
-        const dotsEl = document.getElementById('loadingDots');
-        if (dotsEl) dotsEl.textContent = '.'.repeat(dots);
-    }, 500);
 }
 
 function updateLoadingProgress(percent, status) {
@@ -516,12 +425,8 @@ function updateLoadingProgress(percent, status) {
 }
 
 async function hideSplashScreen() { 
-    if (dotsInterval) clearInterval(dotsInterval);
-    const loadingText = document.getElementById('loadingText');
-    const loadingDots = document.getElementById('loadingDots');
-    if (loadingText) loadingText.textContent = 'CONCLUÍDO';
-    if (loadingDots) loadingDots.textContent = '';
-    await delay(800);
+    document.getElementById('loadingText').textContent = 'CONCLUÍDO';
+    await delay(500);
     splashScreen.style.opacity = '0'; 
     setTimeout(() => splashScreen.remove(), 1000); 
 }
@@ -530,7 +435,7 @@ async function loadScript(url, label) {
     return fetch(url).then(response => response.text()).then(script => { 
         loadedPlugins.push(label); 
         eval(script);
-        updateLoadingProgress((loadedPlugins.length / 3) * 100, `Módulo carregado: ${label}`);
+        updateLoadingProgress((loadedPlugins.length / 3) * 100, `Carregado: ${label}`);
     }); 
 }
 
@@ -620,7 +525,7 @@ function setupMain(){
                                 type: "radio", alignment: "default", static: false, graded: true,
                                 options: {
                                     choices: [
-                                        { content: "⬜", correct: true, id: "correct-choice" }
+                                        { content: "💜", correct: true, id: "correct-choice" }
                                     ],
                                     randomize: false, multipleSelect: false, displayCount: null, deselectEnabled: false
                                 },
@@ -731,88 +636,6 @@ function setupMain(){
             let body;
             if (input instanceof Request) body = await input.clone().text();
             else if (init.body) body = init.body;
-            if (body && input.url && input.url.includes("mark_conversions")) {
-                try {
-                    if (body.includes("termination_event")) { sendToast("🚫 | Limite de Tempo Bloqueado!", 1200); return; }
-                } catch (e) { console.error(`🚨 Error @ minuteFarm.js\n${e}`); }
-            }
-            return originalFetch.apply(this, arguments);
-        };
-    })();
-
-    /* AutoAnswer */
-    (function () {
-        const baseSelectors = [
-            `.perseus_hm3uu-sq`,
-            `[data-testid="exercise-check-answer"]`, 
-            `[data-testid="exercise-next-question"]`, 
-            `._1wi2tma4`
-        ];
-
-        window.khanDarkDominates = true;
-
-        (async () => { 
-            while (window.khanDarkDominates) {                    
-                const selectorsToCheck = [...baseSelectors];
-
-                for (const q of selectorsToCheck) {
-                    findAndClickBySelector(q);
-                    const el = document.querySelector(q+"> div");
-                    if (el && el.innerText === "Mostrar resumo") {
-                        sendToast("🎉 | Questão concluída!", 1500);
-                    }
-                }
-                await delay(1900);
-            }
-        })();
-    })();
-}
-
-/* Inject */
-if (!/^https?:\/\/([a-z0-9-]+\.)?khanacademy\.org/.test(window.location.href)) { 
-    alert("❌ | KhanDark não iniciou!\n\nVocê precisa executar o Script na Plataforma Khan Academy! (https://pt.khanacademy.org/)"); 
-    window.location.href = "https://pt.khanacademy.org/"; 
-} else {
-    showSplashScreen();
-    updateLoadingProgress(0, 'Inicializando sistema...');
-
-    const startTime = Date.now();
-
-    loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', 'DarkReader')
-    .then(()=>{ 
-        DarkReader.setFetchMethod(window.fetch); 
-        DarkReader.enable(); 
-        updateLoadingProgress(33, 'DarkReader ativado com sucesso');
-    })
-    .then(() => loadCss('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css'))
-    .then(() => {
-        updateLoadingProgress(66, 'Recursos de interface carregados');
-        return loadScript('https://cdn.jsdelivr.net/npm/toastify-js', 'Toastify');
-    })
-    .then(async () => {    
-        updateLoadingProgress(100, 'Sistema pronto para uso!');
-
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, 3000 - elapsedTime);
-        await delay(remainingTime);
-
-        sendToast("⬜ | KhanDark iniciado com sucesso!");
-
-        await delay(2000);
-
-        hideSplashScreen();
-        setupMain();
-
-        console.clear();
-    })
-    .catch(error => {
-        console.error('Erro ao carregar KhanDark:', error);
-        alert('❌ Erro ao carregar KhanDark. Verifique o console para mais detalhes.');
-    });
-}window.fetch = async function (input, init = {}) {
-            let body;
-            if (input instanceof Request) body = await input.clone().text();
-            else if (init.body) body = init.body;
             if (body && input.url.includes("mark_conversions")) {
                 try {
                     if (body.includes("termination_event")) { sendToast("🚫 | Limite de Tempo Bloqueado!", 1200); return; }
@@ -856,7 +679,7 @@ if (!/^https?:\/\/([a-z0-9-]+\.)?khanacademy\.org/.test(window.location.href)) {
 }
 
 showSplashScreen();
-updateLoadingProgress(0, 'Inicializando sistema...');
+updateLoadingProgress(0, 'Inicializando...');
 
 const startTime = Date.now();
 
@@ -864,26 +687,12 @@ loadScript('https://cdn.jsdelivr.net/npm/darkreader@4.9.92/darkreader.min.js', '
 .then(()=>{ 
     DarkReader.setFetchMethod(window.fetch); 
     DarkReader.enable(); 
-    updateLoadingProgress(33, 'DarkReader ativado com sucesso');
+    updateLoadingProgress(33, 'DarkReader carregado');
 })
 .then(() => loadCss('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css'))
 .then(() => {
-    updateLoadingProgress(66, 'Recursos de interface carregados');
+    updateLoadingProgress(66, 'Estilos carregados');
     return loadScript('https://cdn.jsdelivr.net/npm/toastify-js', 'Toastify');
 })
 .then(async () => {    
-    updateLoadingProgress(100, 'Sistema pronto para uso!');
-
-    const elapsedTime = Date.now() - startTime;
-    const remainingTime = Math.max(0, 3000 - elapsedTime);
-    await delay(remainingTime);
-
-    sendToast("⬜ | KhanDark iniciado com sucesso!");
-
-    await delay(2000);
-
-    hideSplashScreen();
-    setupMain();
-
-    console.clear();
-});
+    updateLoadingProgress(100, 'Final
