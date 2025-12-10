@@ -500,7 +500,8 @@ async function showSplashScreen() {
     let dots = 0;
     dotsInterval = setInterval(() => {
         dots = (dots + 1) % 4;
-        document.getElementById('loadingDots').textContent = '.'.repeat(dots);
+        const dotsEl = document.getElementById('loadingDots');
+        if (dotsEl) dotsEl.textContent = '.'.repeat(dots);
     }, 500);
 }
 
@@ -515,9 +516,11 @@ function updateLoadingProgress(percent, status) {
 }
 
 async function hideSplashScreen() { 
-    clearInterval(dotsInterval);
-    document.getElementById('loadingText').textContent = 'CONCLUÍDO';
-    document.getElementById('loadingDots').textContent = '';
+    if (dotsInterval) clearInterval(dotsInterval);
+    const loadingText = document.getElementById('loadingText');
+    const loadingDots = document.getElementById('loadingDots');
+    if (loadingText) loadingText.textContent = 'CONCLUÍDO';
+    if (loadingDots) loadingDots.textContent = '';
     await delay(800);
     splashScreen.style.opacity = '0'; 
     setTimeout(() => splashScreen.remove(), 1000); 
