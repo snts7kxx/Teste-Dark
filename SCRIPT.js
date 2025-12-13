@@ -207,27 +207,14 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         .kd-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #0084ff, #0007ff, #2c81ff, #0007ff);
-            background-size: 200% 100%;
-            width: 0%;
-            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: 0 0 20px #0007ff;
-            animation: shimmer 2s linear infinite;
-            position: relative;
-        }
-        
-        .kd-progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            animation: slide 1.5s infinite;
-        }
-        
+    height: 100%;
+    background: #0007ff;
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 15px #0007ff;
+    position: relative;
+}
+
         .kd-progress-percent {
             text-align: center;
             color: rgba(255, 255, 255, 0.5);
