@@ -97,7 +97,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         .kd-logo-text {
-            font-size: 72px;
+            font-size: 73px;
             font-weight: bold;
             letter-spacing: 4px;
             position: relative;
@@ -111,7 +111,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-logo-blue {
             color: #0007ff;
-            text-shadow: 0 0 35px #0007ff, 0 0 60px #0007ff;
+            text-shadow: 0 0 30px #0007ff, 0 0 60px #0007ff;
             animation: glow 2s ease-in-out infinite;
         }
         
@@ -183,7 +183,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-loading-text {
             color: #0007ff;
-            font-size: 18px;
+            font-size: 20px;
             margin-top: 20px;
             font-weight: 500;
             letter-spacing: 2px;
@@ -224,13 +224,13 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
             animation: slide 1.5s infinite;
         }
         
         .kd-progress-percent {
             text-align: center;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 14px;
             margin-top: 10px;
             font-weight: 500;
@@ -584,7 +584,7 @@ function setupMain(){
 
 /* Inject */
 if (!/^https?:\/\/([a-z0-9-]+\.)?khanacademy\.org/.test(window.location.href)) { 
-    alert("❌ | KhanDark não iniciou!\n\nVocê precisa executar o Script na Plataforma Khan Academy! (https://pt.khanacademy.org/)"); 
+    alert("❌ | KhanBlue não iniciou!\n\nVocê precisa executar o Script na Plataforma Khan Academy! (https://pt.khanacademy.org/)"); 
     window.location.href = "https://pt.khanacademy.org/"; 
 }
 
