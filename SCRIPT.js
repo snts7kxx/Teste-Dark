@@ -23,8 +23,8 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 30px #af00ff, 0 0 60px #af00ff; }
-            50% { text-shadow: 0 0 40px #af00ff, 0 0 80px #0007ff, 0 0 100px #0007ff; }
+            0%, 100% { text-shadow: 0 0 30px #0007ff, 0 0 60px #0007ff; }
+            50% { text-shadow: 0 0 40px #0007ff, 0 0 80px #0007ff, 0 0 100px #0007ff; }
         }
         
         @keyframes hexSpin {
@@ -166,8 +166,8 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-hexagon:nth-child(2) {
             width: 45px;
             height: 45px;
-            border-top-color: #d966ff;
-            border-bottom-color: #d966ff;
+            border-top-color: #2c81ff;
+            border-bottom-color: #2c81ff;
             animation-duration: 1.5s;
             animation-direction: reverse;
         }
@@ -208,7 +208,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #8b00cc, #0007ff, #d966ff, #0007ff);
+            background: linear-gradient(90deg, #8b00cc, #0007ff, #2c81ff, #0007ff);
             background-size: 200% 100%;
             width: 0%;
             transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
