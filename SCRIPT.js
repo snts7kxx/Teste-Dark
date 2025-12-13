@@ -290,7 +290,7 @@ async function showSplashScreen() {
         <div class="kd-splash-content">
             <div class="kd-logo-container">
                 <div class="kd-logo-text">
-                    <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">DARK</span>
+                    <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">BLUE</span>
                 </div>
             </div>
 
@@ -435,7 +435,7 @@ function setupMain(){
                                 type: "radio", alignment: "default", static: false, graded: true,
                                 options: {
                                     choices: [
-                                        { content: "💜", correct: true, id: "correct-choice" }
+                                        { content: "💙", correct: true, id: "correct-choice" }
                                     ],
                                     randomize: false, multipleSelect: false, displayCount: null, deselectEnabled: false
                                 },
