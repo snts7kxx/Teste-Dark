@@ -106,12 +106,12 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-logo-khan {
             color: white;
-            text-shadow: 0 0 20px rgba(0, 7, 255, 1);
+            text-shadow: 0 0 20px rgba(0, 7, 255, 0.8);
         }
         
-        .kd-logo-dark {
+        .kd-logo-blue {
             color: #0007ff;
-            text-shadow: 0 0 30px #0007ff, 0 0 60px #0007ff;
+            text-shadow: 0 0 35px #0007ff, 0 0 60px #0007ff;
             animation: glow 2s ease-in-out infinite;
         }
         
