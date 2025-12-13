@@ -106,7 +106,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-logo-khan {
             color: white;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 20px rgba(0, 7, 255, 1);
         }
         
         .kd-logo-dark {
@@ -199,7 +199,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-progress-bar {
             width: 100%;
             height: 6px;
-            background: rgba(175, 0, 255, 0.1);
+            background: rgba(0, 7, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
             position: relative;
@@ -224,7 +224,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             animation: slide 1.5s infinite;
         }
         
@@ -249,7 +249,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(175, 0, 255, 0.5);
+            color: rgba(0, 7, 255, 0.5);
             font-size: 12px;
             letter-spacing: 2px;
         }
