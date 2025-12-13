@@ -118,7 +118,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-divider {
             width: 300px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #af00ff, transparent);
+            background: linear-gradient(90deg, transparent, #0007ff, transparent);
             margin: 30px auto;
             position: relative;
         }
