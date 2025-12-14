@@ -58,7 +58,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #000000 0%, #1a0033 50%, #000000 100%);
+            background: linear-gradient(135deg, #000000 0%, #000357 50%, #000000 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -175,9 +175,9 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-hexagon-core {
             width: 20px;
             height: 20px;
-            background: #af00ff;
+            background: #0007ff;
             border-radius: 50%;
-            box-shadow: 0 0 20px #af00ff;
+            box-shadow: 0 0 20px #0007ff;
             animation: pulse 1.5s ease-in-out infinite;
         }
         
@@ -249,7 +249,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(175, 0, 255, 0.5);
+            color: rgba(0, 7, 255, 0.5);
             font-size: 12px;
             letter-spacing: 2px;
         }
