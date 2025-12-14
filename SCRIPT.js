@@ -208,7 +208,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
                 .kd-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #8b00cc, #af00ff, #d966ff, #af00ff);
+            background: linear-gradient(90deg, #0084ff, #0007ff, #2c81ff, #0007ff);
             background-size: 200% 100%;
             width: 0%;
             transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
