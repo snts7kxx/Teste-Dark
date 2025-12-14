@@ -23,7 +23,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 30px #0007ff, 0 0 60px #0007ff; }
+            0%, 100% { text-shadow: 0 0 30px #0007ff, 0 0 60px #af00ff; }
             50% { text-shadow: 0 0 40px #0007ff, 0 0 80px #0007ff, 0 0 100px #0007ff; }
         }
         
@@ -58,7 +58,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #000000 0%, #000357 50%, #000000 100%);
+            background: linear-gradient(135deg, #000000 0%, #1a0033 50%, #000000 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -97,7 +97,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         .kd-logo-text {
-            font-size: 73px;
+            font-size: 72px;
             font-weight: bold;
             letter-spacing: 4px;
             position: relative;
@@ -106,12 +106,12 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-logo-khan {
             color: white;
-            text-shadow: 0 0 20px rgba(0, 7, 255, 0.8);
+            text-shadow: 0 0 20px rgba(0, 7, 255, 0.5);
         }
         
-        .kd-logo-blue {
+        .kd-logo-dark {
             color: #0007ff;
-            text-shadow: 0 0 30px #0007ff, 0 0 60px #0007ff;
+            text-shadow: 0 0 30px #af00ff, 0 0 60px #af00ff;
             animation: glow 2s ease-in-out infinite;
         }
         
@@ -166,8 +166,8 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-hexagon:nth-child(2) {
             width: 45px;
             height: 45px;
-            border-top-color: #2c81ff;
-            border-bottom-color: #2c81ff;
+            border-top-color: #d966ff;
+            border-bottom-color: #d966ff;
             animation-duration: 1.5s;
             animation-direction: reverse;
         }
@@ -175,15 +175,15 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-hexagon-core {
             width: 20px;
             height: 20px;
-            background: #0007ff;
+            background: #af00ff;
             border-radius: 50%;
-            box-shadow: 0 0 20px #0007ff;
+            box-shadow: 0 0 20px #af00ff;
             animation: pulse 1.5s ease-in-out infinite;
         }
         
         .kd-loading-text {
             color: #0007ff;
-            font-size: 20px;
+            font-size: 18px;
             margin-top: 20px;
             font-weight: 500;
             letter-spacing: 2px;
@@ -206,9 +206,9 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
         
-                .kd-progress-fill {
+        .kd-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #0084ff, #0007ff, #2c81ff, #0007ff);
+            background: linear-gradient(90deg, #2c81ff, #0007ff, #d966ff, #0007ff);
             background-size: 200% 100%;
             width: 0%;
             transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -227,10 +227,10 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             animation: slide 1.5s infinite;
         }
-
+        
         .kd-progress-percent {
             text-align: center;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 14px;
             margin-top: 10px;
             font-weight: 500;
@@ -249,7 +249,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(0, 7, 255, 0.5);
+            color: rgba(175, 0, 255, 0.5);
             font-size: 12px;
             letter-spacing: 2px;
         }
@@ -290,7 +290,7 @@ async function showSplashScreen() {
         <div class="kd-splash-content">
             <div class="kd-logo-container">
                 <div class="kd-logo-text">
-                    <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">BLUE</span>
+                    <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">DARK</span>
                 </div>
             </div>
 
