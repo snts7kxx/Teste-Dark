@@ -111,7 +111,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-logo-dark {
             color: #0007ff;
-            text-shadow: 0 0 30px #af00ff, 0 0 60px #af00ff;
+            text-shadow: 0 0 30px #0007ff, 0 0 60px #0007ff;
             animation: glow 2s ease-in-out infinite;
         }
         
@@ -166,8 +166,8 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         .kd-hexagon:nth-child(2) {
             width: 45px;
             height: 45px;
-            border-top-color: #d966ff;
-            border-bottom-color: #d966ff;
+            border-top-color: #0084ff;
+            border-bottom-color: #0084ff;
             animation-duration: 1.5s;
             animation-direction: reverse;
         }
@@ -208,7 +208,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         
         .kd-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #2c81ff, #0007ff, #d966ff, #0007ff);
+            background: linear-gradient(90deg, #2c81ff, #0007ff, #0084ff, #0007ff);
             background-size: 200% 100%;
             width: 0%;
             transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -290,7 +290,7 @@ async function showSplashScreen() {
         <div class="kd-splash-content">
             <div class="kd-logo-container">
                 <div class="kd-logo-text">
-                    <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">DARK</span>
+                    <span class="kd-logo-khan">KHAN</span><span class="kd-logo-dark">BLUE</span>
                 </div>
             </div>
 
