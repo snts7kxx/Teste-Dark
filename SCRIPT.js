@@ -23,7 +23,7 @@ document.head.appendChild(Object.assign(document.createElement('style'), {
         }
         
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 30px #0007ff, 0 0 60px #af00ff; }
+            0%, 100% { text-shadow: 0 0 30px #0007ff, 0 0 60px #0007ff; }
             50% { text-shadow: 0 0 40px #0007ff, 0 0 80px #0007ff, 0 0 100px #0007ff; }
         }
         
